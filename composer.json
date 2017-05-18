@@ -9,4 +9,9 @@
             "email": "kristof.molnar@jurihub.fr"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Jurihub\\LaravelWebhooks\\": "src/"
+        }
+    }
 }
