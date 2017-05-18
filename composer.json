@@ -1,0 +1,12 @@
+{
+    "name": "jurihub/laravel-webhooks",
+    "description": "Laravel package to handle Webhooks",
+    "keywords": ["laravel", "webhook"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kristof Molnar, Jurihub",
+            "email": "kristof.molnar@jurihub.fr"
+        }
+    ],
+}
