@@ -36,13 +36,13 @@ To handle incoming webhooks, create a new controller, eg. `App\Http\Controllers\
     namespace App\Http\Controllers\Webhooks;
     
     use Symfony\Component\HttpFoundation\Response;
-    use Jurihub\LaravelWebhooks\Http\Controllers\LaravelWebhooks\ReceiverController as WebhooksReceiverController;
+    use Jurihub\LaravelWebhooks\Http\Controllers\Webhooks\ReceiverController as BaseController;
     
-    class ReceiverController extends WebhooksReceiverController
+    class ReceiverController extends BaseController
     {
         public function handleUserUpdated($data)
         {
-            // handling $data here
+            // handling $data here for type 'user.updated'
         }
     }
 
