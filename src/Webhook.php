@@ -34,6 +34,8 @@ class Webhook extends Model {
         $this->closed_at = Carbon::now();
         $this->status = $status;
         $this->save();
+        
+        $this->unlock();
     }
     
     public function data2send()
@@ -51,13 +53,12 @@ class Webhook extends Model {
             'response_body' => $response,
         ]);
         
-        $this->nb_tries = $this->nb_tries + 1;
-        $this->last_tried_at = Carbon::now();
-        $this->is_working = false;
-        $this->save();
+        $this->incrementTriesCounter();
         
         if ($this->nb_tries > self::maxTries()) {
             $this->close('failed');
+        } else {
+            $this->unlock();
         }
     }
     
@@ -68,7 +69,16 @@ class Webhook extends Model {
             'response_body' => $data,
         ]);
         
+        $this->incrementTriesCounter();
+        
         $this->close('success');
+    }
+    
+    public function incrementTriesCounter()
+    {
+        $this->nb_tries = $this->nb_tries + 1;
+        $this->last_tried_at = Carbon::now();
+        $this->save();
     }
     
     public static function maxTries()
@@ -86,6 +96,9 @@ class Webhook extends Model {
     
     public function send()
     {
+        $this->is_working = true;
+        $this->save();
+        
         $http = new \GuzzleHttp\Client;
         try {
             $response = $http->post($this->target, [
@@ -104,5 +117,11 @@ class Webhook extends Model {
         }
 
         $this->handleResponse($responseBody);
+    }
+    
+    public function unlock()
+    {
+        $this->is_working = false;
+        $this->save();
     }
 }
