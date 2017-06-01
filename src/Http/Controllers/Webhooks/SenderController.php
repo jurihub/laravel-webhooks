@@ -32,6 +32,8 @@ class SenderController extends Controller
             ->whereNotNull('last_tried_at')
             ->orderBy('id', 'desc')
             ->first();
-        $webhook->send();
+        if ($webhook !== null) {
+            $webhook->send();
+        }
     }
 }
