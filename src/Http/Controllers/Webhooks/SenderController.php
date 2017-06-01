@@ -16,18 +16,18 @@ class SenderController extends Controller
      *
      * @return bool
      */
-    protected function isInTestingEnvironment()
+    public static function isInTestingEnvironment()
     {
         return env('APP_ENV') !== 'prod';
     }
     
-    public function retry()
+    public static function retry()
     {
         $webhook = Webhook
             ::where([
                 ['is_working', '=', 0],
                 ['is_closed', '=', 0],
-                ['last_tried_at', '<', Carbon::now()->subMinutes($this->isInTestingEnvironment() ? 1 : 30)],
+                ['last_tried_at', '<', Carbon::now()->subMinutes(self::isInTestingEnvironment() ? 1 : 30)],
             ])
             ->whereNotNull('last_tried_at')
             ->orderBy('id', 'desc')
