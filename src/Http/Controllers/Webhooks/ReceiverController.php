@@ -37,7 +37,7 @@ class ReceiverController extends Controller
      */
     protected function isInTestingEnvironment()
     {
-        return env('APP_ENV') !== 'prod';
+        return !in_array(env('APP_ENV'),['prod','production']);
     }
 
     /**

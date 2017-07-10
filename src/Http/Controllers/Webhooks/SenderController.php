@@ -18,7 +18,7 @@ class SenderController extends Controller
      */
     public static function isInTestingEnvironment()
     {
-        return env('APP_ENV') !== 'prod';
+        return !in_array(env('APP_ENV'),['prod','production']);
     }
     
     public static function retry()
