@@ -14,7 +14,6 @@ class AddWebhooks extends Migration
     public function up()
     {
         Schema::create('webhooks', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->string('type');
@@ -26,8 +25,7 @@ class AddWebhooks extends Migration
             $table->integer('nb_tries')->default(0);
             $table->timestamp('last_tried_at')->nullable()->default(null);
             $table->string('status')->nullable()->default(null)->index()->comment("canceled, failed, success");
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

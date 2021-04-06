@@ -2,8 +2,8 @@
 
 return [
     'targets' => [
-        // 'http://api.service-one.dev/api/v1/example/endpoint
-        // 'http://api.service-two.dev/api/v1/example/endpoint
+        // 'http://service-one.localhost/api/v1/example/endpoint
+        // 'http://service-two.localhost/api/v1/example/endpoint
     ],
     'max-tries' => 10,
 ];
